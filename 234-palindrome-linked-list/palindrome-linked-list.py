@@ -1,11 +1,18 @@
 class Solution:
     def isPalindrome(self, head):
         val = []
-        curr = head
+        temp = head 
+        while temp is not None:
+            val.append(temp.val)
+            temp=temp.next
 
-        while curr:
-            val.append(curr.val)
-            curr = curr.next
+        temp = head
+        while temp is not None:
+            if temp.val != val[-1]:
+                return False
 
-        return val == val[::-1]
+            temp = temp.next 
+            val.pop()
+        return True
+        
         
