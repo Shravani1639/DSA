@@ -1,18 +1,27 @@
 class Solution:
     def isPalindrome(self, head):
-        val = []
-        temp = head 
-        while temp is not None:
-            val.append(temp.val)
-            temp=temp.next
+        fast=slow=head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-        temp = head
-        while temp is not None:
-            if temp.val != val[-1]:
+        prev = None
+        while slow:
+            next_node = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next_node 
+        
+        first = head
+        second = prev
+
+        while second:
+            if first.val != second.val:
                 return False
 
-            temp = temp.next 
-            val.pop()
+            first = first.next
+            second = second.next
+
         return True
         
         
