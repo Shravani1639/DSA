@@ -5,23 +5,15 @@
 #         self.next = next
 class Solution(object):
     def pairSum(self, head):
-        fast =slow = head
+        stack = []
+        slow = fast = head
         while fast and fast.next:
+            stack.append(slow.val)
             slow = slow.next
             fast = fast.next.next
-        prev= None
-        while slow:
-            next_node = slow.next
-            slow.next = prev
-            prev = slow
-            slow = next_node
-
-        first = head
-        last = prev
+        
         max_sum = 0
-        while last:
-            max_sum = max(max_sum,first.val+last.val)
-            first = first.next
-            last = last.next
-            
+        while slow:
+            max_sum = max(max_sum,stack.pop()+slow.val)
+            slow = slow.next
         return max_sum
