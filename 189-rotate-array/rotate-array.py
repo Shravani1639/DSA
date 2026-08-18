@@ -1,16 +1,20 @@
-class Solution(object):
+class Solution:
+    def rever(self, nums, start, end):
+        while start < end:
+            nums[start], nums[end] = nums[end], nums[start]
+            start += 1
+            end -= 1
+
     def rotate(self, nums, k):
-        n = len(nums)
-        k = k%n
-        val = []
-        out = []
-        for i in range(n-k):
-            val.append(nums[i])
+        length = len(nums)
+        k %= length
+        if k == 0:
+            return
 
-        for j in range(n-k,n):
-            out.append(nums[j])
-
-        nums[:] = out + val
+        someMid = length - k
+        self.rever(nums, 0, someMid - 1)
+        self.rever(nums, someMid, length - 1)
+        self.rever(nums, 0, length - 1)
 
 
 
