@@ -1,20 +1,14 @@
 class Solution:
-    def rever(self, nums, start, end):
-        while start < end:
-            nums[start], nums[end] = nums[end], nums[start]
-            start += 1
-            end -= 1
+    def rotate(self, nums: List[int], k: int) -> None:
+        n = len(nums)
+        k %= n
 
-    def rotate(self, nums, k):
-        length = len(nums)
-        k %= length
-        if k == 0:
-            return
+        def reverse(l, r):
+            while l < r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
 
-        someMid = length - k
-        self.rever(nums, 0, someMid - 1)
-        self.rever(nums, someMid, length - 1)
-        self.rever(nums, 0, length - 1)
-
-
-
+        reverse(0, n - 1)
+        reverse(0, k - 1)
+        reverse(k, n - 1)
