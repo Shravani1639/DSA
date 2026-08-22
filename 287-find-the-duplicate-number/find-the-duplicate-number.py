@@ -1,8 +1,8 @@
-class Solution:
-    def findDuplicate(self, nums: List[int]) -> int:
+class Solution(object):
+    def findDuplicate(self, nums):
         seen = {}
         for num in nums:
             if num in seen:
                 return num
-            seen[num] = True
+            seen[num] = True 
         return None
