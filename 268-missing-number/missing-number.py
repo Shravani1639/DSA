@@ -1,11 +1,8 @@
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
+        seen = {num:True for num in nums}
         n = len(nums)
-        sum = 0
-        for i in range(n):
-            sum = sum+nums[i]
-        expected = n*(n+1)//2
-        return expected - sum
-
-
+        for i in range(n+1):
+            if i not in seen:
+                return i
         
