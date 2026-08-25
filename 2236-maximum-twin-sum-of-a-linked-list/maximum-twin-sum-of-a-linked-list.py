@@ -1,19 +1,23 @@
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution(object):
     def pairSum(self, head):
-        stack = []
-        slow = fast = head
+        slow = fast = head 
         while fast and fast.next:
-            stack.append(slow.val)
             slow = slow.next
             fast = fast.next.next
-        
-        max_sum = 0
+        prev = None
         while slow:
-            max_sum = max(max_sum,stack.pop()+slow.val)
-            slow = slow.next
+            next_node = slow.next
+            slow.next = prev 
+            prev = slow 
+            slow = next_node
+        left = head
+        right = prev
+        max_sum = 0
+        while right:
+            max_sum = max(max_sum,left.val+right.val)
+            left = left.next
+            right = right.next
         return max_sum
+
+
+        
