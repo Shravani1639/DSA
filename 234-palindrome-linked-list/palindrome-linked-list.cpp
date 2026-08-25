@@ -1,28 +1,41 @@
 class Solution {
 public:
+    ListNode* reverse(ListNode* head) {
+        ListNode* prev = nullptr;
+        while (head) {
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+
     bool isPalindrome(ListNode* head) {
-        // Some Brute Force Steps to follow
-        // 1) Reverse the list and store it in r_head;
-        // and then compare head->val and r_head->val if equal move both the pointers otherwise if not equal return false.
-        // When the loop will be executed fully retrun true
-         if(head == NULL || head->next == NULL){
-            return (head);
+        if (!head || !head->next)
+            return true;
+
+        // Find middle
+        ListNode *slow = head, *fast = head;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        ListNode *r_head = NULL;
-        ListNode *ptr = head;
-        while(ptr!=NULL){
-            ListNode *temp = new ListNode(ptr->val);
-            temp ->next = r_head;
-            r_head = temp;
-            ptr = ptr->next;
-        }
-        while(head && r_head){
-            if(head->val != r_head->val){
+
+        // Reverse second half
+        ListNode* secondHalf = reverse(slow->next);
+
+        // Compare both halves
+        ListNode* firstHalf = head;
+        ListNode* temp = secondHalf;
+
+        while (temp) {
+            if (firstHalf->val != temp->val)
                 return false;
-            }
-            head = head->next;
-            r_head = r_head->next;
+            firstHalf = firstHalf->next;
+            temp = temp->next;
         }
+
         return true;
     }
 };
