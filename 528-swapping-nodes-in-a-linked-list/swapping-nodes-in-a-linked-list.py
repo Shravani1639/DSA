@@ -1,15 +1,15 @@
-class Solution(object):
-    def swapNodes(self, head, k):
-        fast = slow= head
-        for _ in range(1,k):
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        fast = slow = head
+        for _ in range(k-1):
             fast = fast.next
-        tail = fast 
+        
+        first = fast 
+        tail = fast
         while tail.next:
             slow = slow.next
             tail = tail.next
-        fast.val,slow.val = slow.val,fast.val
-        return head 
+        first.val,slow.val = slow.val,first.val
+        return head
 
-
-        
         
