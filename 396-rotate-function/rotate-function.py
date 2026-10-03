@@ -1,21 +1,24 @@
-class Solution(object):
-    def maxRotateFunction(self, nums):
+class Solution:
+    def maxRotateFunction(self, nums: List[int]) -> int:
         n = len(nums)
-        sum = 0
-        product = 0
-        for i in range(0,n):
-            sum = sum+nums[i]
-            product = i*nums[i]+product 
 
-        res = product
-        for i in range(1,n):
-            product = product + sum - n*nums[-i]
-            res = max(res,product)
-        return res
+        totalSum = 0
+        for i in range(n):
+            totalSum += nums[i]
 
+        currentResult = 0
+        for i in range(n):
+            currentResult += (nums[i] * i)
 
-                
+        maxResult = currentResult
 
+        for i in range(n - 1, 0, -1):
+            valueToBeAdded = totalSum - nums[i]
+            currentResult += valueToBeAdded
 
+            valueToBeSubtracted = (nums[i] * (n - 1))
+            currentResult -= valueToBeSubtracted
 
-        
+            maxResult = max(maxResult, currentResult)
+
+        return maxResult
